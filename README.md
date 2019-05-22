@@ -22,17 +22,54 @@ import React, { useState } from 'react';
 import createUseContext from 'create-use-context';
 
 const [
-  ExampleContext,
-  ExampleContextProvider,
-  ExampleContextConsumer,
-  useExampleContext,
+  MyContext,
+  MyContextProvider,
+  MyContextConsumer,
+  useMyContext,
 ] = createUseContext((Provider) => ({ children }) => {
   const [counter, setCounter] = useState(0);
 
   return <Provider value={{ counter, setCounter }}>{children}</Provider>;
 });
 
-export { ExampleContextConsumer, ExampleContextProvider, useExampleContext };
+function App() {
+  return (
+    <MyContextProvider>
+      <ComponentWithHook />
+      <ComponentWithConsumer />
+    </MyContextProvider>
+  );
+}
 
-export default ExampleContext;
+function ComponentWithHook() {
+  const { counter, setCounter } = useMyContext();
+
+  return (
+    <button
+      onClick={() => {
+        setCounter(counter + 1);
+      }}
+    >
+      {counter} - add one
+    </button>
+  );
+}
+
+function ComponentWithConsumer() {
+  return (
+    <MyContextConsumer>
+      {({ counter, setCounter }) => (
+        <button
+          onClick={() => {
+            setCounter(counter + 1);
+          }}
+        >
+          {counter} - add one
+        </button>
+      )}
+    </MyContextConsumer>
+  );
+}
+
+export default App;
 ```
