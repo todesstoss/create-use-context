@@ -8,3 +8,6 @@ node_modules/
 
 # Distribution directory
 dist/
+
+# System
+.DS_Store
