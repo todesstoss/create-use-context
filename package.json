@@ -1,0 +1,31 @@
+{
+  "name": "create-use-context",
+  "version": "0.0.1",
+  "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
+  "main": "dist/create-use-context.cjs.js",
+  "module": "dist/create-use-context.esm.js",
+  "browser": "dist/create-use-context.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "React",
+    "Context",
+    "Hooks",
+    "createContext"
+  ],
+  "files": [
+    "/dist"
+  ],
+  "author": "Eugene Mickhnitskyy",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.17.1",
+    "rollup": "^1.12.3"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  }
+}
