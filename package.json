@@ -1,6 +1,6 @@
 {
   "name": "create-use-context",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
   "repository": {
     "type": "git",
@@ -26,8 +26,11 @@
   "author": "Eugene Mickhnitskyy",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "prettier": "^1.17.1",
-    "rollup": "^1.12.3"
+    "rollup": "^1.12.3",
+    "rollup-plugin-babel": "^4.3.2"
   },
   "peerDependencies": {
     "react": "^16.8.0"
