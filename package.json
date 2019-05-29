@@ -1,14 +1,14 @@
 {
   "name": "create-use-context",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
   "repository": {
     "type": "git",
     "url": "https://github.com/todesstoss/create-use-context.git"
   },
-  "main": "dist/create-use-context.cjs.js",
-  "module": "dist/create-use-context.esm.js",
-  "browser": "dist/create-use-context.umd.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "browser": "dist/umd/index.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -21,18 +21,28 @@
     "createContext"
   ],
   "files": [
-    "/dist"
+    "dist/cjs/*",
+    "dist/esm/*",
+    "dist/umd/*"
   ],
   "author": "Eugene Mickhnitskyy",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "prettier": "^1.17.1",
     "rollup": "^1.12.3",
-    "rollup-plugin-babel": "^4.3.2"
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "rollup-plugin-terser": "^5.0.0"
   },
   "peerDependencies": {
+    "hoist-non-react-statics": "^3.3.0",
     "react": "^16.8.0"
+  },
+  "dependencies": {
+    "react-display-name": "^0.2.4"
   }
 }
