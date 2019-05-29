@@ -17,29 +17,20 @@ yarn add create-use-context
 ## Usage
 
 ```javascript
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 
-import createUseContext from 'create-use-context';
+import { createUseContext, createWithContext } from 'create-use-context';
 
-const [
-  MyContext,
-  MyContextProvider,
-  MyContextConsumer,
-  useMyContext,
-] = createUseContext((Provider) => ({ children }) => {
+const {
+  Context: MyContext,
+  ContextProvider: MyContextProvider,
+  ContextConsumer: MyContextConsumer,
+  useContext: useMyContext,
+} = createUseContext((Provider) => ({ children }) => {
   const [counter, setCounter] = useState(0);
 
   return <Provider value={{ counter, setCounter }}>{children}</Provider>;
 });
-
-function App() {
-  return (
-    <MyContextProvider>
-      <ComponentWithHook />
-      <ComponentWithConsumer />
-    </MyContextProvider>
-  );
-}
 
 function ComponentWithHook() {
   const { counter, setCounter } = useMyContext();
@@ -68,6 +59,41 @@ function ComponentWithConsumer() {
         </button>
       )}
     </MyContextConsumer>
+  );
+}
+
+// You might also need a High Order Component to wrap your class Components
+// if you don't line Render Prop pattern with a Consumer Component.
+
+// So you can use `createWithContext` helper function:
+
+const withMyContext = createWithContext(MyContext, 'my');
+
+class ClassComponent extends Component {
+  render() {
+    const { counter, setCounter } = this.props.my;
+
+    return (
+      <button
+        onClick={() => {
+          setCounter(counter + 1);
+        }}
+      >
+        {counter} - add one
+      </button>
+    );
+  }
+}
+
+const ClassCompoenntWithHOC = withMyContext(ClassComponent);
+
+function App() {
+  return (
+    <MyContextProvider>
+      <ComponentWithHook />
+      <ComponentWithConsumer />
+      <ClassCompoenntWithHOC />
+    </MyContextProvider>
   );
 }
 
