@@ -1,48 +1,43 @@
 {
-  "name": "create-use-context",
-  "version": "1.0.1",
+  "author": "Eugene Mickhnitskyy",
+  "dependencies": {
+    "react-display-name": "0.2.4"
+  },
   "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/todesstoss/create-use-context.git"
+  "devDependencies": {
+    "@babel/core": "7.7.4",
+    "@babel/preset-env": "7.7.4",
+    "@babel/preset-react": "7.7.4",
+    "prettier": "1.19.1",
+    "rollup": "1.27.5",
+    "rollup-plugin-babel": "4.3.3"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "browser": "dist/umd/index.js",
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "files": [
+    "dist/cjs/*",
+    "dist/esm/*"
+  ],
   "keywords": [
     "React",
     "Context",
     "Hooks",
     "createContext"
   ],
-  "files": [
-    "dist/cjs/*",
-    "dist/esm/*",
-    "dist/umd/*"
-  ],
-  "author": "Eugene Mickhnitskyy",
   "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "prettier": "^1.17.1",
-    "rollup": "^1.12.3",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-node-resolve": "^5.0.0",
-    "rollup-plugin-terser": "^5.0.0"
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "name": "create-use-context",
   "peerDependencies": {
     "hoist-non-react-statics": "^3.3.0",
     "react": "^16.8.0"
   },
-  "dependencies": {
-    "react-display-name": "^0.2.4"
-  }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/todesstoss/create-use-context.git"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
 }
