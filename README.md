@@ -85,14 +85,14 @@ class ClassComponent extends Component {
   }
 }
 
-const ClassCompoenntWithHOC = withMyContext(ClassComponent);
+const ClassComponentWithHOC = withMyContext(ClassComponent);
 
 function App() {
   return (
     <MyContextProvider>
       <ComponentWithHook />
       <ComponentWithConsumer />
-      <ClassCompoenntWithHOC />
+      <ClassComponentWithHOC />
     </MyContextProvider>
   );
 }

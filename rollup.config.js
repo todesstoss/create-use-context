@@ -1,34 +1,6 @@
 import babel from 'rollup-plugin-babel';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
 
 export default [
-  // browser-friendly UMD build
-  {
-    input: 'src/index.js',
-    plugins: [
-      resolve(),
-      babel({
-        exclude: 'node_modules/**',
-      }),
-      commonjs(),
-      terser(),
-    ],
-    output: {
-      exports: 'named',
-      name: 'createUseContext',
-      file: 'dist/umd/index.js',
-      format: 'umd',
-      esModule: false,
-      globals: {
-        react: 'React',
-        'hoist-non-react-statics': 'HoistNonReactStatics',
-      },
-    },
-    external: ['react', 'hoist-non-react-statics'],
-  },
-  // CommonJS (for Node) and ES module (for bundlers) build.
   {
     input: {
       index: 'src/index.js',
