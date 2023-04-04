@@ -1,6 +1,6 @@
 # create-use-context
 
-A helper method which wraps original React `useContext` method in a type-safe manner providing `NonNullable` context value. Will throw if used outside of `Provider`.
+A helper method which wraps original React `useContext` method in a type-safe manner providing `NonNullable` context value. Will throw if used outside of `Provider`
 
 ## Installation
 

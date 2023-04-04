@@ -2,7 +2,7 @@
   "author": "Yevgenii Mikhnytskyi",
   "dependencies": {},
   "type": "module",
-  "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
+  "description": "A helper method which wraps original React `useContext` method in a type-safe manner providing `NonNullable` context value. Will throw if used outside of `Provider`",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.0",
     "@rollup/plugin-typescript": "^11.0.0",
@@ -43,5 +43,5 @@
     "dev": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "2.0.0"
+  "version": "2.0.1"
 }
