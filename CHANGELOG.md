@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+### Fix
+
+- Fix `createUseContext` returned value instead hook
+
 ## 2.0.0
 
 ### New features
