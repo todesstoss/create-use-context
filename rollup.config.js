@@ -1,28 +1,27 @@
-import babel from 'rollup-plugin-babel';
+import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
-export default [
-  {
-    input: {
-      index: 'src/index.js',
-      'create-use-context': 'src/createUseContext.js',
-      'create-with-context': 'src/createWithContext.js',
+const production = process.env.BUILD === 'production';
+
+function getConfig({ dir, format }) {
+  return {
+    input: 'src/index.ts',
+    output: {
+      exports: 'named',
+      dir,
+      format,
+      sourcemap: true,
     },
     plugins: [
-      babel({
-        exclude: 'node_modules/**',
-      }),
+      peerDepsExternal(),
+      typescript({ outDir: dir }),
+      production && terser(),
     ],
-    output: [
-      {
-        exports: 'named',
-        dir: 'dist/cjs',
-        format: 'cjs',
-      },
-      {
-        dir: 'dist/esm',
-        format: 'esm',
-      },
-    ],
-    external: ['react', 'hoist-non-react-statics', 'react-display-name'],
-  },
+  }
+}
+
+export default [
+  getConfig({ dir: 'dist/cjs', format: 'cjs' }),
+  getConfig({ dir: 'dist/esm', format: 'esm' }),
 ];
