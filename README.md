@@ -1,6 +1,6 @@
 # create-use-context
 
-A helper method which wraps original React `createContext` method and type-safe `useContext` hook which will throw if used outside of `Provider`.
+A helper method which wraps original React `useContext` method in a type-safe manner providing `NonNullable` context value. Will throw if used outside of `Provider`.
 
 ## Installation
 
@@ -18,7 +18,7 @@ yarn add create-use-context
 
 ## Screenshot
 
-Mind the `useMyContext` return type is `NonNullable` context value. It will throw if used outside of `Provider`
+Mind the `useMyContext` return type is `NonNullable` context value
 
 ![Screenshot](Screenshot.png)
 
