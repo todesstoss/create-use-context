@@ -1,16 +1,18 @@
 {
-  "author": "Eugene Mickhnitskyy",
-  "dependencies": {
-    "react-display-name": "0.2.4"
-  },
+  "author": "Yevgenii Mikhnytskyi",
+  "dependencies": {},
+  "type": "module",
   "description": "A helper method which wraps original React `createContext` method and provides additional functionality like wrapping a `Context.Provider`, `useContext` helper, etc.",
   "devDependencies": {
-    "@babel/core": "7.7.4",
-    "@babel/preset-env": "7.7.4",
-    "@babel/preset-react": "7.7.4",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/react": "^18.0.33",
+    "install-peers-cli": "^2.2.0",
     "prettier": "1.19.1",
-    "rollup": "1.27.5",
-    "rollup-plugin-babel": "4.3.3"
+    "rollup": "^3.20.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.3"
   },
   "files": [
     "dist/cjs/*",
@@ -24,10 +26,11 @@
   ],
   "license": "MIT",
   "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
   "module": "dist/esm/index.js",
+  "browser": "dist/esm/index.js",
   "name": "create-use-context",
   "peerDependencies": {
-    "hoist-non-react-statics": "^3.3.0",
     "react": "^16.8.0"
   },
   "repository": {
@@ -35,9 +38,10 @@
     "url": "https://github.com/todesstoss/create-use-context.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "prepare": "install-peers",
+    "build": "rollup -c --environment BUILD:production",
     "dev": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.0.2"
+  "version": "2.0.0"
 }
