@@ -32,7 +32,6 @@ Declare context as `YourValue | typeof EMPTY_CONTEXT_VALUE`, pass `EMPTY_CONTEXT
 import React, {
   createContext,
   useState,
-  type FC,
   type Dispatch,
   type SetStateAction,
 } from 'react';
@@ -51,9 +50,11 @@ export const CounterContext = createContext<
 
 CounterContext.displayName = 'CounterContext';
 
-export const CounterContextProvider: FC<{ children?: React.ReactNode }> = ({
+export function CounterContextProvider({
   children,
-}) => {
+}: {
+  children: React.ReactNode;
+}) {
   const [counter, setCounter] = useState(INITIAL_COUNT);
 
   return (
@@ -61,7 +62,7 @@ export const CounterContextProvider: FC<{ children?: React.ReactNode }> = ({
       {children}
     </CounterContext.Provider>
   );
-};
+}
 
 export const useCounterContext = createUseContext(CounterContext);
 

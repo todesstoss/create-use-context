@@ -1,11 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  createContext,
-  createElement,
-  useState,
-  type FC,
-  type ReactNode,
-} from 'react';
+import { createContext, createElement, useState, type ReactNode } from 'react';
 import { renderHook, act } from '@testing-library/react';
 import { createUseContext, EMPTY_CONTEXT_VALUE } from './createUseContext';
 
@@ -18,14 +12,14 @@ describe('createUseContext', () => {
   TestContext.displayName = 'TestContext';
   const useTestContext = createUseContext(TestContext);
 
-  const Provider: FC<{ children?: ReactNode }> = ({ children }) => {
+  function Provider({ children }: { children: ReactNode }) {
     const [count, setCount] = useState(0);
     const value: Value = {
       count,
       increment: () => setCount((c) => c + 1),
     };
     return createElement(TestContext.Provider, { value }, children);
-  };
+  }
 
   it('returns context value inside Provider', () => {
     const { result } = renderHook(() => useTestContext(), {
