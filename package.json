@@ -1,20 +1,34 @@
 {
   "author": "Yevgenii Mikhnytskyi",
   "type": "module",
-  "description": "A helper method which wraps original React `useContext` method in a type-safe manner providing `NonNullable` context value. Will throw if used outside of `Provider`",
+  "sideEffects": false,
+  "description": "Type-safe useContext wrapper: sentinel default outside Provider, hook return type uses Exclude to drop the empty marker",
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.0.0",
+    "@eslint/js": "^9.19.0",
+    "@testing-library/react": "^16.0.0",
     "@types/react": "^18.0.33",
-    "install-peers-cli": "^2.2.0",
-    "prettier": "1.19.1",
-    "rollup": "^3.20.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.3"
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^9.19.0",
+    "@vitest/eslint-plugin": "^1.6.15",
+    "husky": "^9.1.7",
+    "jsdom": "^25.0.0",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tsdown": "^0.21.7",
+    "typescript": "6.0.2",
+    "typescript-eslint": "^8.22.0",
+    "vitest": "^3.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "files": [
-    "dist/cjs/*",
-    "dist/esm/*"
+    "dist"
   ],
   "keywords": [
     "React",
@@ -23,11 +37,13 @@
     "createContext"
   ],
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "types": "dist/cjs/index.d.ts",
-  "module": "dist/esm/index.js",
-  "browser": "dist/esm/index.js",
+  "lint-staged": {
+    "*.{ts,tsx,mjs,cjs,json,md,yml,yaml}": "prettier --write"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "name": "create-use-context",
+  "packageManager": "pnpm@10.33.0",
   "peerDependencies": {
     "react": "^16.8.0"
   },
@@ -36,10 +52,14 @@
     "url": "https://github.com/todesstoss/create-use-context.git"
   },
   "scripts": {
-    "prepare": "install-peers",
-    "build": "rollup -c --environment BUILD:production",
-    "dev": "rollup -c -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "prepare": "husky",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
-  "version": "2.0.2"
+  "version": "3.0.0"
 }
