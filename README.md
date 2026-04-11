@@ -29,10 +29,11 @@ yarn add create-use-context
 Declare context as `YourValue | typeof EMPTY_CONTEXT_VALUE`, pass `EMPTY_CONTEXT_VALUE` to `createContext` as the default (no provider), then wrap with `createUseContext`. The returned hook is typed like `() => YourValue`: you can still use `null` or `undefined` inside `YourValue` if you need them; the sentinel is only for “no provider mounted.”
 
 ```tsx
-import React, {
+import {
   createContext,
   useState,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
 } from 'react';
 import { createUseContext, EMPTY_CONTEXT_VALUE } from 'create-use-context';
@@ -50,11 +51,7 @@ export const CounterContext = createContext<
 
 CounterContext.displayName = 'CounterContext';
 
-export function CounterContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function CounterContextProvider({ children }: { children: ReactNode }) {
   const [counter, setCounter] = useState(INITIAL_COUNT);
 
   return (
