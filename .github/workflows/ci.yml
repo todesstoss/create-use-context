@@ -83,16 +83,13 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm run build
-
-      - name: Install npm CLI with OIDC trusted publishing
-        run: npm install -g npm@^11.5.1
 
       - name: Publish to npm (OIDC)
         run: npm publish --access public
