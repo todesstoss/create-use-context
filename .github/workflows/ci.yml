@@ -28,10 +28,53 @@ jobs:
       - run: pnpm test
       - run: pnpm run build
 
-  tag-release:
-    needs: ci
+  version-changed:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'todesstoss/create-use-context'
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Compare package.json version to previous master commit
+        id: check
+        run: |
+          set -euo pipefail
+          BEFORE="${{ github.event.before }}"
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "No prior SHA on this ref; skip tag/release/publish (avoid unintended first automation)."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          NEW_VER=$(jq -r .version package.json)
+          set +e
+          PREV_JSON=$(git show "${BEFORE}:package.json" 2>/dev/null)
+          PREV_OK=$?
+          set -e
+          if [ "$PREV_OK" -ne 0 ] || [ -z "$PREV_JSON" ]; then
+            echo "Could not read package.json at before SHA; skip."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          OLD_VER=$(echo "$PREV_JSON" | jq -r .version)
+          if [ "$OLD_VER" = "null" ] || [ -z "$OLD_VER" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$NEW_VER" != "$OLD_VER" ]; then
+            echo "Version changed: ${OLD_VER} -> ${NEW_VER}"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Version unchanged (${NEW_VER}); skip tag, release, and publish."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  tag-release:
+    needs: [ci, version-changed]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'todesstoss/create-use-context' && needs.ci.result == 'success' && needs.version-changed.outputs.changed == 'true'
     permissions:
       contents: write
     steps:
@@ -39,14 +82,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create annotated tag from CHANGELOG
+      - name: Create annotated tag and GitHub release from CHANGELOG
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           VERSION=$(jq -r .version package.json)
           TAG="v${VERSION}"
 
           if git ls-remote --tags origin "refs/tags/${TAG}" | grep -q .; then
-            echo "Tag ${TAG} already exists on origin, skipping."
+            echo "Tag ${TAG} already exists on origin, skipping tag and release."
             exit 0
           fi
 
@@ -67,6 +112,9 @@ jobs:
 
           git tag -a "${TAG}" -F "$BODY"
           git push origin "refs/tags/${TAG}"
+
+          gh release create "${TAG}" --title "${TAG}" --notes-file "$BODY"
+          rm -f "$BODY"
 
   publish:
     needs: [ci, tag-release]
