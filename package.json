@@ -45,7 +45,7 @@
   "name": "create-use-context",
   "packageManager": "pnpm@10.33.0",
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": ">=16.8.0"
   },
   "repository": {
     "type": "git",
@@ -61,5 +61,5 @@
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
-  "version": "3.0.0"
+  "version": "3.0.1"
 }
