@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1
+
+### Fix
+
+- Widen **`react` peer dependency** to `>=16.8.0` so npm can install with React 17, 18, and 19 (`^16.8.0` only matched 16.x and triggered `ERESOLVE` with React 19).
+
 ## 3.0.0
 
 ### Breaking changes
